@@ -1,0 +1,25 @@
+/*.container{
+			width: 100vw;
+			height: 100vh;
+		}*/
+		.head{
+			color: #7ed56f;
+		}
+		.section-book{
+			padding: 5rem 5rem;
+			background-image: linear-gradient(to right bottom, #7ed56f,#28b485)
+		}
+		.book{
+			background-image: 
+								linear-gradient(120deg, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.9) 50%, transparent 50% ), url(../../assets/image/test.jpg);
+			background-size: cover;
+			border-radius: 3px;
+			box-shadow: 0 1.5rem 4rem rgba(255,255,255, 0.2);
+
+			height: 30rem;
+
+		}
+		.form{
+				width: 50%;
+				padding: 6rem;
+		}

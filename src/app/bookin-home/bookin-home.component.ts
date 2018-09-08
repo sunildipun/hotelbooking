@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-bookin-home',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookinHomeComponent implements OnInit {
 
-  constructor() { }
+  public hotels: AngularFireList<any>;
+    constructor(db: AngularFireDatabase) {
+        db.list('/hotels').valueChanges().subscribe(val=>{
+          console.log('HOTELS',val);
+        });
+        
+}
 
   ngOnInit() {
   }

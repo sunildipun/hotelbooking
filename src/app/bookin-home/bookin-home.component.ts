@@ -7,23 +7,25 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
   styleUrls: ['./bookin-home.component.css']
 })
 export class BookinHomeComponent implements OnInit {
-  public hotel_searcharray
+  public hotel_area_array = []
   public hotels: AngularFireList<any>;
     constructor(db: AngularFireDatabase) {
         db.list('/hotels').valueChanges().subscribe(val=>{
           console.log('HOTELS',val);
-            // val.forEach(val=>{
-              //  let obj = new Object()
-              //  obj['area'] = val['area']
-              //  obj['city'] = val['city']
-              //  obj['country'] = val['country']
-              //  obj['address'] = val['address']
-              //  obj['locality'] = val['locality']
-              //  obj['state'] = val['state']
-              //  obj['uniq_id'] = val['uniq_id']
-            // })
+            val.forEach(val=>{
+               let obj = new Object()
+               obj['area'] = val['area']
+               obj['city'] = val['city']
+               obj['country'] = val['country']
+               obj['address'] = val['address']
+               obj['locality'] = val['locality']
+               obj['state'] = val['state']
+               this.hotel_area_array.push(obj);
+            })
               let new_val =  Utils.filterArrayByString(val,'Manali')
               console.log('Searchlist',new_val)
+              console.log('areas',this.hotel_area_array)
+              console.log('hotel_search_area dropdown',Utils.filterArrayByString(this.hotel_area_array,'Manali'))
         });
         
 }

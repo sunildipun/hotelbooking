@@ -20,6 +20,9 @@ export class BookinHomeComponent implements OnInit {
                obj['address'] = val['address']
                obj['locality'] = val['locality']
                obj['state'] = val['state']
+               obj['property_name'] = val['property_name']
+               obj['property_type'] = val['property_type']
+               obj['province'] = val['province']
                this.hotel_area_array.push(obj);
             })
               let new_val =  Utils.filterArrayByString(val,'Manali')

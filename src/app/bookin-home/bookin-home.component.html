@@ -1,20 +1,25 @@
 <div class="container">
   <section class="section-book">
-    <div class="row">
+    <div class="rowto">
       <div class="book">
         <div class="book__form">
           <form class="form">
             <div class="head">
-              <h2>
+              <h3>
                 START BOOKING NOW
-              </h2>
+              </h3>
             </div>
 
             <div class="form_group">
               <!-- <input type="text" class="form_input" placeholder="Enter City" id="name" required>
               <label for="name" class="form_label">Enter City</label> -->
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Enter City, Town, Hotels" value="Bengaluru">
+              <mat-form-field class="example-full-width" style="width:94%;">
+                <input matInput #inputField placeholder="Enter City, Town, Hotels" [formControl]="searchControl" (input)="areaSearch()" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.area">
+                      <span>{{ option.area }}</span> <span style="color:#7ed56f; float:right;">{{option.city}}</span>
+                    </mat-option>
+                  </mat-autocomplete> 
               </mat-form-field>
             </div>
 
@@ -22,7 +27,7 @@
               <!-- <input type="text" class="form_input" placeholder="Start Date" id="start" required>
               <label for="start" class="form_label">Start Date</label> -->
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Start date">
+                <input matInput [matDatepicker]="picker" placeholder="Start date" [(ngModel)]="start" [ngModelOptions]="{standalone: true}">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -32,7 +37,7 @@
               <!-- <input type="text" class="form_input" placeholder="End Date" id="end" required>
               <label for="end" class="form_label">End Date</label> -->
               <mat-form-field>
-                <input matInput [matDatepicker]="picker1" placeholder="End date">
+                <input matInput [matDatepicker]="picker1" placeholder="End date" [(ngModel)]="end" [ngModelOptions]="{standalone: true}">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
@@ -40,7 +45,7 @@
 
             <div class="form_group" style="margin-right: 1rem;float: left;">
               <mat-form-field>
-                <mat-select placeholder="Adults">
+                <mat-select placeholder="Adults" [(ngModel)]="adult" [ngModelOptions]="{standalone: true}">
                   <mat-option *ngFor="let adult of adults" [value]="adult.value">
                     {{adult.viewValue}}
                   </mat-option>
@@ -50,7 +55,7 @@
 
             <div class="form_group">
               <mat-form-field>
-                <mat-select placeholder="Childrens">
+                <mat-select placeholder="Childrens" [(ngModel)]="child" [ngModelOptions]="{standalone: true}">
                   <mat-option *ngFor="let child of childrens" [value]="child.value">
                     {{child.viewValue}}
                   </mat-option>
@@ -59,7 +64,7 @@
 
               <div class="form_group">
                 <div class="search">
-                  <h3 style="color:aliceblue; padding:0.5rem">SEARCH</h3>
+                  <a style="color:aliceblue; padding:0.5rem" (click)=openListPage()>SEARCH</a>
                 </div>
               </div>
             </div>

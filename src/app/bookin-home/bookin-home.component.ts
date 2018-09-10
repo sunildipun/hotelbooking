@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Router } from '@angular/router';
+import { AppService } from '../app.service';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-bookin-home',
@@ -28,10 +34,25 @@ export class BookinHomeComponent implements OnInit {
     {value: '5', viewValue: '5 Childrens'},
   ];
 
+  
+  options = [
+    'banglore','delhi','manali'
+  ];
+  searchControl :FormControl  = new FormControl();
+  filteredOptions: Observable<any[]>;
+
+  searchText:any;
+  start:any;
+  end:any;
+  adult:any;
+  child:any;
+
   public hotel_area_array = []
   public hotels: AngularFireList<any>;
-    constructor(db: AngularFireDatabase) {
-        db.list('/hotels').valueChanges().subscribe(val=>{
+    constructor(db: AngularFireDatabase,private router: Router,private appService: AppService) {
+        
+      
+      db.list('/hotels').valueChanges().subscribe(val=>{
           console.log('HOTELS',val);
             val.forEach(val=>{
                let obj = new Object()
@@ -55,8 +76,37 @@ export class BookinHomeComponent implements OnInit {
 }
 
   ngOnInit() {
+    console.log('searchControl',this.searchControl)
+    this.filteredOptions = this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => 
+            Utils.filterArrayByString(this.hotel_area_array,val)
+        )
+      );
   }
 
+//   filter(val: any): any[] {
+//     return this.hotel_area_array.filter(option =>
+//       console.log('option',option))
+//       // option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+//   }
+   
+  openListPage(){
+      let obj =  new Object();
+      obj['searchText'] = this.searchControl.value;
+      obj['start'] =  this.start;
+      obj['end'] = this.end;
+      obj['adult'] = this.adult;
+      obj['child'] =  this.child;
+      this.appService.bookinObj = obj;
+      console.log('home',this.appService.bookinObj) 
+      localStorage.setItem('booking',JSON.stringify(this.appService.bookinObj));
+      this.router.navigate(['search-result'])
+  }
+  areaSearch(){
+    console.log('hotel_search_area dropdown',Utils.filterArrayByString(this.hotel_area_array,this.searchText))
+  }
 }
 
 

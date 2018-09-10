@@ -11,7 +11,7 @@
 		}
 		.book{
 			background-image: 
-								linear-gradient(120deg, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.9) 50%, transparent 50% ), url(../../assets/image/jared-rice-388264-unsplash.jpg);
+								linear-gradient(120deg, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.9) 50%, transparent 50% ), url(../../assets/image/test.jpg);
 			background-size: cover;
 			border-radius: 3px;
 			box-shadow: 0 1.5rem 4rem rgba(255,255,255, 0.2);
@@ -20,8 +20,8 @@
 
 		}
 		.form{
-				width: 50%;
-				padding: 6rem;
+				width: 65%;
+				padding: 4rem;
 		}
 		.search{
 			background: #28b485;
